@@ -11,7 +11,10 @@ axum = "0.7"
 tokio = { version = "1.0", features = ["full"] }
 
 # Database
-sqlx = { version = "0.7", features = ["runtime-tokio-native-tls", "postgres", "macros", "chrono", "uuid"] }
+sqlx = { version = "0.7", features = ["runtime-tokio-native-tls", "postgres", "macros", "chrono", "uuid", "rust_decimal"] }
+
+# Data Types
+rust_decimal = "1.33"
 
 # Serialization
 serde = { version = "1.0", features = ["derive"] }
