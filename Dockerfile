@@ -1,10 +1,11 @@
 # Build Stage
-FROM rust:1.80-slim-bookworm AS builder
+# We are changing from 1.80 to latest to support new libraries
+FROM rust:latest AS builder
 
 WORKDIR /usr/src/app
 
-# Copy manifests to cache dependencies
-COPY Cargo.toml Cargo.lock ./
+# Copy manifest to cache dependencies
+COPY Cargo.toml ./
 
 # Create a dummy main.rs to build dependencies
 RUN mkdir src && echo "fn main() {}" > src/main.rs
@@ -24,7 +25,7 @@ RUN cargo build --release
 # Runtime Stage
 FROM debian:bookworm-slim
 
-# Install necessary runtime dependencies (e.g., for SSL/TLS if needed)
+# Install necessary runtime dependencies
 RUN apt-get update && apt-get install -y libssl-dev ca-certificates && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/local/bin
